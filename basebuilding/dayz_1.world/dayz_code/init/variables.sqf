@@ -26,4 +26,4 @@ Not all variables are boolean true or false but hopefully you get the idea
 	keyValid 			= false;
 	procBuild 			= false;
 	currentBuildRecipe 	= 0;
-
+	removeObject		= false;

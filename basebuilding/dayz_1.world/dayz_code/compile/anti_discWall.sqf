@@ -1,8 +1,3 @@
-/*
-A player can drive his vehicle into a player made base then disconnect,
-this prevents it by kicking the player out of the vehicle when auto-driving
-*/
-
 private["_inVehicle","_noDriver","_wallTypes","_cnt","_wall","_isVehicle"];
 _inVehicle = (vehicle player != player);
 _isVehicle = (vehicle player);

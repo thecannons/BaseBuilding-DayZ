@@ -111,17 +111,12 @@ _countr = 0;
 // ##### BASE BUILDING 1.2 Server Side ##### - START
 // This sets objects to appear properly once server restarts
 		if ((_object isKindOf "Static") && !(_object isKindOf "TentStorage")) then {
-			_pos set [2,0];
-			_object setpos _pos;
-			//_object addEventHandler ["HandleDamage", {false}];	
+			_object setpos [(getposATL _object select 0),(getposATL _object select 1), 0];
 		};
 		//Set Variable
 		if (_object isKindOf "Infostand_2_EP1" && !(_object isKindOf "Infostand_1_EP1")) then {
-			//addaction
 			_object setVariable ["ObjectUID", _worldspace call dayz_objectUID2, true];
 			_object enableSimulation false;
-			//_object setVariable ["ObjectID", str(_idKey), true];
-			//_object addEventHandler ["HandleDamage", {false}];
 		};
 
 

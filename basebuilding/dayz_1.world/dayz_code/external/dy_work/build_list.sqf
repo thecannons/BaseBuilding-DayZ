@@ -68,6 +68,8 @@ Notice lines 47 and 62
 */
 // Towns to restrict from building in. (Type exact name as shown on map, NOT Case-Sensitive but spaces important)
 // ["Classname", range restriction];
+// This is an example of Tavi town restrictions!
+/* << REMOVE THIS IF YOU WANT TO ENABLE (remove bottom one too!)
 _build_townsrestrict = [
 ["Lyepestok", 1000],
 ["Sabina", 900],
@@ -77,6 +79,7 @@ _build_townsrestrict = [
 ["Seven", 300],
 ["Blato", 300]
 ];
+*/ // << REMOVE THIS IF YOU WANT TO ENABLE (remove top one too!)
 // Here we are filling the global arrays with this local list
 allbuildables = _buildlist;
 allbuild_notowns = _build_townsrestrict;

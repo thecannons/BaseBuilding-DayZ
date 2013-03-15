@@ -1,4 +1,4 @@
-private["_removable","_eTool","_result","_building","_dialog","_classname","_requirements","_objectID","_objectUID","_obj","_cnt","_id","_tblProb","_locationPlayer","_randNum2","_smallWloop","_medWloop","_longWloop","_wait","_longWait","_medWait","_highP","_medP","_lowP","_failRemove","_canRemove","_randNum","_text","_dir","_pos","_isWater","_inVehicle","_onLadder","_hasToolbox","_canDo","_hasEtool"];
+private["_func_ownerRemove","_qtyS","_qtyW","_qtyL","_qtyM","_qtyG","_qtyT","_removable","_eTool","_result","_building","_dialog","_classname","_requirements","_objectID","_objectUID","_obj","_cnt","_id","_tblProb","_locationPlayer","_randNum2","_smallWloop","_medWloop","_longWloop","_wait","_longWait","_medWait","_highP","_medP","_lowP","_failRemove","_canRemove","_randNum","_text","_dir","_pos","_isWater","_inVehicle","_onLadder","_hasToolbox","_canDo","_hasEtool"];
 disableserialization;
 _obj = cursorTarget;
 if (_obj isKindof "Grave") then {
@@ -11,6 +11,7 @@ _objectID = _obj getVariable["ObjectID","0"];
 _objectUID = _obj getVariable["ObjectUID","0"];
 };
 
+_ownerID = _obj getVariable ["characterID","0"];
 // Pre-Checks
 _dir = direction _obj;
 _pos = getposATL _obj;
@@ -27,6 +28,7 @@ _hasEtool 		= 	"ItemEtool" in weapons player;
 //Booleans
 _canRemove 		= false;
 _failRemove		= false;
+_result 		= false;
 
 //Integers
 _longWloop 		= 6; // larger object loop, decrease to decrease time
@@ -39,6 +41,12 @@ _highP 			= 95;
 _cnt 			= 0;
 _wait 			= 10;
 
+_qtyT = 0;
+_qtyS = 0; //144752844454260
+_qtyW = 0;
+_qtyL = 0;
+_qtyM = 0;
+_qtyG = 0;
 // Do percentages
 _randNum = round(random 100);
 _randNum2 = round(random 100);
@@ -48,6 +56,61 @@ if(_isWater) then {cutText [localize "str_player_26", "PLAIN DOWN"];breakOut "ex
 if(_onLadder) then {cutText [localize "str_player_21", "PLAIN DOWN"];breakOut "exit";};
 if (_inVehicle) then {cutText [localize "Can't do this in vehicle", "PLAIN DOWN"];breakOut "exit";};
 
+_func_ownerRemove = {
+
+for "_i" from 0 to ((count allbuildables) - 1) do
+	{
+		_classname = (allbuildables select _i) select _i - _i + 1;
+		_result = [typeOf(_obj),_classname] call BIS_fnc_areEqual;
+			if (_result) then {
+				_recipe = (allbuildables select _i) select _i - _i;
+				//[_qtyT, _qtyS, _qtyW, _qtyL, _qtyM, _qtyG]
+				_qtyT = _recipe select 0;
+				_qtyS = _recipe select 1;
+				_qtyW = _recipe select 2;
+				_qtyL = _recipe select 3;
+				_qtyM = _recipe select 4;
+				_qtyG = _recipe select 5;
+			};
+	};
+	if (_qtyT > 0) then {
+		for "_i" from 1 to _qtyT do { _result = [player,"ItemTankTrap"] call BIS_fnc_invAdd;  };
+	};
+	if (_qtyS > 0) then {
+		for "_i" from 1 to _qtyS do { _result = [player,"ItemSandbag"] call BIS_fnc_invAdd;  };
+	};
+	if (_qtyW > 0) then {
+		for "_i" from 1 to _qtyW do { _result = [player,"ItemWire"] call BIS_fnc_invAdd;  };
+	};
+	if (_qtyL > 0) then {
+		for "_i" from 1 to _qtyL do { _result = [player,"PartWoodPile"] call BIS_fnc_invAdd; };
+	};
+	if (_qtyM > 0) then {
+		for "_i" from 1 to _qtyM do { _result = [player,"PartGeneric"] call BIS_fnc_invAdd;  };
+	};
+	if (_qtyG > 0) then {
+		for "_i" from 1 to _qtyG do { _result = [player,"HandGrenade_west"] call BIS_fnc_invAdd;  };
+	};
+	cutText [format["Owner refunded for object %1",typeof(_obj)], "PLAIN DOWN",1];
+		dayzDeleteObj = [_objectID,_objectUID];
+	publicVariableServer "dayzDeleteObj";
+	if (isServer) then {
+		dayzDeleteObj call local_deleteObj;
+	};
+		deletevehicle _obj; 
+		breakout "exit";
+
+};
+
+
+		_validObject = _obj getVariable ["validObject",false];
+if (removeObject && _validObject) then {
+	call _func_ownerRemove;
+};
+
+if ( _ownerID == dayz_characterID ) then { 
+	call _func_ownerRemove;
+};
 remProc = true;
 
 //Determine camoNet since camoNets cannot be targeted with Crosshair

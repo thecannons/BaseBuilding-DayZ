@@ -1,7 +1,7 @@
 /*
 Base Building DayZ by Daimyo
 */
-private["_playerCombat","_isSimulated","_isDestructable","_townRange","_longWloop","_medWloop","_smallWloop","_inTown","_inProgress","_modDir","_startPos","_tObjectPos","_buildable","_chosenRecipe","_cnt","_cntLoop","_dialog","_buildReady","_buildCheck","_isInCombat","_playerCombat","_check_town","_eTool","_toolBox","_town_pos","_town_name","_closestTown","_roadAllowed","_toolsNeeded","_inBuilding","_attachCoords","_requirements","_result","_alreadyBuilt","_uidDir","_p1","_p2","_uid","_worldspace","_panelNearest2","_staticObj","_onRoad","_itemL","_itemM","_itemG","_qtyL","_qtyM","_qtyG","_cntLoop","_finished","_checkComplete","_objectTemp","_locationPlayer","_object","_id","_isOk","_text","_mags","_hasEtool","_canDo","_hasToolbox","_inVehicle","_isWater","_onLadder","_building","_medWait","_longWait","_location","_isOk","_dir","_classname","_item","_itemT","_itemS","_itemW","_qtyT","_qtyS","_qtyW"];
+private["_funcExitScript","_playerCombat","_isSimulated","_isDestructable","_townRange","_longWloop","_medWloop","_smallWloop","_inTown","_inProgress","_modDir","_startPos","_tObjectPos","_buildable","_chosenRecipe","_cnt","_cntLoop","_dialog","_buildReady","_buildCheck","_isInCombat","_playerCombat","_check_town","_eTool","_toolBox","_town_pos","_town_name","_closestTown","_roadAllowed","_toolsNeeded","_inBuilding","_attachCoords","_requirements","_result","_alreadyBuilt","_uidDir","_p1","_p2","_uid","_worldspace","_panelNearest2","_staticObj","_onRoad","_itemL","_itemM","_itemG","_qtyL","_qtyM","_qtyG","_cntLoop","_finished","_checkComplete","_objectTemp","_locationPlayer","_object","_id","_isOk","_text","_mags","_hasEtool","_canDo","_hasToolbox","_inVehicle","_isWater","_onLadder","_building","_medWait","_longWait","_location","_isOk","_dir","_classname","_item","_itemT","_itemS","_itemW","_qtyT","_qtyS","_qtyW"];
 
 // Location placement declarations
 _locationPlayer = player modeltoworld [0,0,0];
@@ -19,7 +19,7 @@ _canDo 			= (!r_drag_sqf and !r_player_unconscious and !_onLadder); //USE!!
 _isWater 		= 	(surfaceIsWater _locationPlayer) or dayz_isSwimming;
 _inVehicle 		= (vehicle player != player);
 _isOk = [player,_building] call fnc_isInsideBuilding;
-_closestTown = (nearestLocations [player,["NameCityCapital","NameCity","NameVillage"],25600]) select 0;
+_closestTown = (nearestLocations [player,["NameCityCapital","NameCity","NameVillage","Airport"],25600]) select 0;
 _town_name = text _closestTown;
 _town_pos = position _closestTown;
 
@@ -54,14 +54,29 @@ _smallWloop 	= 0;
 _cnt 			= 0;
 _playerCombat = player;
 
+// Function to exit script without combat activate
+_funcExitScript = {
+	procBuild = false;
+	breakOut "exit";
+};
+
 // Do first checks to see if player can build before counting
 if (procBuild) then {cutText ["Your already building!", "PLAIN DOWN"];breakOut "exit";};
-if(_isWater) then {cutText [localize "str_player_26", "PLAIN DOWN"];procBuild = false;breakOut "exit";};
-if(_onLadder) then {cutText [localize "str_player_21", "PLAIN DOWN"];procBuild = false;breakOut "exit";};
-if (_inVehicle) then {cutText ["Can't do this in vehicle", "PLAIN DOWN"];procBuild = false;breakOut "exit";};
+if(_isWater) then {cutText [localize "str_player_26", "PLAIN DOWN"];call _funcExitScript;};
+if(_onLadder) then {cutText [localize "str_player_21", "PLAIN DOWN"];call _funcExitScript;};
+if (_inVehicle) then {cutText ["Can't do this in vehicle", "PLAIN DOWN"];call _funcExitScript;};
 disableSerialization;
 closedialog 1;
-
+// Ashfor Fix: Did player try to drop mag and keep action active (not really needed but leave here just in case)
+//_item = _this;
+//if (_item in (magazines player) ) then { // needs }; 
+// Global variables for loop method, procBuild may not be needed if implemented in fn_selfactions.sqf
+	if (dayz_combat == 1) then {
+		cutText ["Your currently in combat, time reduced to 3 seconds. \nCanceling/escaping will set you back into combat", "PLAIN DOWN"];
+		sleep 3;
+		_playerCombat setVariable["combattimeout", 0, true];
+		dayz_combat = 0;
+	};
 r_interrupt = false;
 r_doLoop = true;
 procBuild = true;
@@ -113,7 +128,7 @@ _mags = magazines player;
 //		_itemG = "Item_Classname";
 //	} else { _qtyI = 0; _buildables set [count _buildables, _qtyI]; };
 */
-
+	
 // Check what object is returned from global array, then return classname
 	for "_i" from 0 to ((count allbuildables) - 1) do
 	{
@@ -126,8 +141,8 @@ _mags = magazines player;
 			};
 		_buildable = [];
 	};
-// Quit here if no proper recipe is acquired
-if (_classname == "") then {cutText ["You need the EXACT amount of whatever you are trying to build without extras.", "PLAIN DOWN"];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true]; breakOut "exit";};
+// Quit here if no proper recipe is acquired else set names properly
+if (_classname == "") then {cutText ["You need the EXACT amount of whatever you are trying to build without extras.", "PLAIN DOWN"];call _funcExitScript;};
 if (_classname == "Grave") then {_text = "Booby Trap";};
 if (_classname == "Concrete_Wall_EP1") then {_text = "Gate Concrete Wall";};
 if (_classname == "Infostand_2_EP1") then {_text = "Gate Panel Keypad Access";};
@@ -157,17 +172,17 @@ _location 		= player modeltoworld _startPos;
 
 //Check Requirements
 if (_toolBox) then {
-	if (!_hasToolbox) then {cutText [format["You need a tool box to build %1",_text], "PLAIN DOWN",1];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true]; breakOut "exit"; };
+	if (!_hasToolbox) then {cutText [format["You need a tool box to build %1",_text], "PLAIN DOWN",1];call _funcExitScript; };
 };
 if (_eTool) then {
-	if (!_hasEtool) then {cutText [format["You need an entrenching tool to build %1",_text], "PLAIN DOWN",1];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true]; breakOut "exit"; };
+	if (!_hasEtool) then {cutText [format["You need an entrenching tool to build %1",_text], "PLAIN DOWN",1];call _funcExitScript; };
 };
 if (_inBuilding) then {
-	if (_isOk) then {cutText [format["%1 cannot be built inside of buildings!",_text], "PLAIN DOWN",1];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true]; breakOut "exit"; };
+	if (_isOk) then {cutText [format["%1 cannot be built inside of buildings!",_text], "PLAIN DOWN",1];call _funcExitScript; };
 };
 if (!_roadAllowed) then { // Do another check for object being on road
 	_onRoad = isOnRoad _locationPlayer;
-	if(_onRoad) then {cutText [format["You cannot build %1 on the road",_text], "PLAIN DOWN",1];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true];breakOut "exit";};
+	if(_onRoad) then {cutText [format["You cannot build %1 on the road",_text], "PLAIN DOWN",1];call _funcExitScript;};
 };
 if (!_inTown) then {
 	for "_i" from 0 to ((count allbuild_notowns) - 1) do
@@ -176,7 +191,7 @@ if (!_inTown) then {
 		if (_town_name == _check_town) then {
 			_townRange = (allbuild_notowns select _i) select _i - _i + 1;
 			if (_locationPlayer distance _town_pos <= _townRange) then {
-				cutText [format["You cannot build %1 within %2 meters of area %3",_text, _townRange, _town_name], "PLAIN DOWN",1];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true];breakOut "exit";
+				cutText [format["You cannot build %1 within %2 meters of area %3",_text, _townRange, _town_name], "PLAIN DOWN",1];call _funcExitScript;
 			};
 		};
 	};
@@ -184,7 +199,7 @@ if (!_inTown) then {
 
 //Check if other panels nearby
 _panelNearest2 = nearestObjects [player, ["Infostand_2_EP1"], 300];
-if (_classname == "Infostand_2_EP1" && (count _panelNearest2 > 1)) then {cutText ["Only 2 gate panels per base in a 300 meter radius!", "PLAIN DOWN"];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true];breakOut "exit";};
+if (_classname == "Infostand_2_EP1" && (count _panelNearest2 > 1)) then {cutText ["Only 2 gate panels per base in a 300 meter radius!", "PLAIN DOWN"];call _funcExitScript;};
 
 // Begin building process
 _buildCheck = false;
@@ -211,6 +226,8 @@ while {!_buildReady} do {
 			if (_inProgress) then {
 				detach _object;
 				sleep 0.03;
+				_location = getposATL _object;
+				_dir = getDir _object;
 				_object setpos [(getposATL _object select 0),(getposATL _object select 1), 0];
 				_cntLoop = 50;
 				_inProgress = false;
@@ -225,10 +242,10 @@ while {!_buildReady} do {
 						if ((!(isNull _dialog) || _isInCombat > 0) && (isPlayer _playerCombat) ) then {
 							detach _object;
 							deletevehicle _object;
-							cutText [format["Build canceled for %1. Player in combat or opened gear.",_text], "PLAIN DOWN",1];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true];breakOut "exit";
+							cutText [format["Build canceled for %1. Player in combat or opened gear.",_text], "PLAIN DOWN",1];call _funcExitScript;
 							if (!_roadAllowed) then { // Check object being placed on road
 								_onRoad = isOnRoad getposATL(_object);
-								if(_onRoad) then {cutText [format["You cannot build %1 on the road",_text], "PLAIN DOWN",1];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true];breakOut "exit";};
+								if(_onRoad) then {cutText [format["You cannot build %1 on the road",_text], "PLAIN DOWN",1];call _funcExitScript;};
 							};
 						};
 						_cntLoop = _cntLoop - 1;
@@ -243,13 +260,13 @@ while {!_buildReady} do {
 		if ((!(isNull _dialog) || (speed player > 9 || speed player < -7) || _isInCombat > 0) && (isPlayer _playerCombat) ) then {
 			detach _object;
 			deletevehicle _object;
-			cutText [format["Build canceled for %1. Player moving too fast, in combat or opened gear.",_text], "PLAIN DOWN",1];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true];breakOut "exit";
+			cutText [format["Build canceled for %1. Player moving too fast, in combat or opened gear.",_text], "PLAIN DOWN",1];call _funcExitScript;
 		};
 	sleep 0.03;
 };
 if (_buildReady) then {
 cutText [format["Building beginning for %1.",_text], "PLAIN DOWN",1];
-} else {cutText [format["Build canceled for %1. Something went wrong!",_text], "PLAIN DOWN",1];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true];breakOut "exit";};
+} else {cutText [format["Build canceled for %1. Something went wrong!",_text], "PLAIN DOWN",1];call _funcExitScript;};
 // Begin Building
 //Do quick check to see if player is not playing nice after placing object
 _locationPlayer = player modeltoworld [0,0,0];
@@ -259,7 +276,7 @@ _isWater 		= 	(surfaceIsWater _locationPlayer) or dayz_isSwimming;
 _inVehicle 		= (vehicle player != player);
 _isOk = [player,_building] call fnc_isInsideBuilding;
 if (_inBuilding) then {
-	if (_isOk) then {deletevehicle _object; cutText [format["%1 cannot be built inside of buildings!",_text], "PLAIN DOWN",1];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true]; breakOut "exit"; };
+	if (_isOk) then {deletevehicle _object; cutText [format["%1 cannot be built inside of buildings!",_text], "PLAIN DOWN",1];call _funcExitScript; };
 };
 // Did player walk object into restricted town?
 _closestTown = (nearestLocations [player,["NameCityCapital","NameCity","NameVillage"],25600]) select 0;
@@ -272,7 +289,7 @@ if (!_inTown) then {
 		if (_town_name == _check_town) then {
 			_townRange = (allbuild_notowns select _i) select _i - _i + 1;
 			if (_locationPlayer distance _town_pos <= _townRange) then {
-				 deletevehicle _object; cutText [format["You cannot build %1 within %2 meters of area %3",_text, _townRange, _town_name], "PLAIN DOWN",1];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true];breakOut "exit";
+				 deletevehicle _object; cutText [format["You cannot build %1 within %2 meters of area %3",_text, _townRange, _town_name], "PLAIN DOWN",1];call _funcExitScript;
 			};
 		};
 	};
@@ -291,8 +308,8 @@ switch (true) do
 		for "_i" from 0 to _longWloop do
 		{
 			cutText [format["Building %1.  %2 seconds left.\nMove from current position to cancel",_text,_cnt + 10], "PLAIN DOWN",1];
-			if (player distance _locationPlayer > 1) then {deletevehicle _object; cutText [format["Build canceled for %1, position of player moved",_text], "PLAIN DOWN",1]; procBuild = false;_playerCombat setVariable["startcombattimer", 1, true]; breakOut "exit";};
-			if (!_canDo || _onLadder || _inVehicle || _isWater) then {deletevehicle _object; cutText [format["Build canceled for %1, player is unable to continue",_text], "PLAIN DOWN",1]; procBuild = false;_playerCombat setVariable["startcombattimer", 1, true]; breakOut "exit";};
+			if (player distance _locationPlayer > 1) then {deletevehicle _object; cutText [format["Build canceled for %1, position of player moved",_text], "PLAIN DOWN",1]; call _funcExitScript;};
+			if (!_canDo || _onLadder || _inVehicle || _isWater) then {deletevehicle _object; cutText [format["Build canceled for %1, player is unable to continue",_text], "PLAIN DOWN",1]; call _funcExitScript;};
 			player playActionNow "Medic";
 			sleep 1;
 			[player,"repair",0,false] call dayz_zombieSpeak;
@@ -330,8 +347,8 @@ switch (true) do
 		for "_i" from 0 to _medWloop do
 		{
 			cutText [format["Building %1.  %2 seconds left.\nMove from current position to cancel",_text,_cnt + 10], "PLAIN DOWN",1];
-			if (player distance _locationPlayer > 1) then {deletevehicle _object; cutText [format["Build canceled for %1, position of player moved",_text], "PLAIN DOWN",1]; procBuild = false;_playerCombat setVariable["startcombattimer", 1, true]; breakOut "exit";};
-			if (!_canDo || _onLadder || _inVehicle || _isWater) then {deletevehicle _object; cutText [format["Build canceled for %1, player is unable to continue",_text], "PLAIN DOWN",1]; procBuild = false;_playerCombat setVariable["startcombattimer", 1, true]; breakOut "exit";};
+			if (player distance _locationPlayer > 1) then {deletevehicle _object; cutText [format["Build canceled for %1, position of player moved",_text], "PLAIN DOWN",1]; call _funcExitScript;};
+			if (!_canDo || _onLadder || _inVehicle || _isWater) then {deletevehicle _object; cutText [format["Build canceled for %1, player is unable to continue",_text], "PLAIN DOWN",1]; call _funcExitScript;};
 			player playActionNow "Medic";
 			sleep 1;
 			[player,"repair",0,false] call dayz_zombieSpeak;
@@ -368,8 +385,8 @@ switch (true) do
 		for "_i" from 0 to _smallWloop do
 		{
 			cutText [format["Building %1.  %2 seconds left.\nMove from current position to cancel",_text,_cnt + 10], "PLAIN DOWN",1];
-			if (player distance _locationPlayer > 1) then {deletevehicle _object; cutText [format["Build canceled for %1, position of player moved",_text], "PLAIN DOWN",1]; procBuild = false;_playerCombat setVariable["startcombattimer", 1, true]; breakOut "exit";};
-			if (!_canDo || _onLadder || _inVehicle || _isWater) then {deletevehicle _object; cutText [format["Build canceled for %1, player is unable to continue",_text], "PLAIN DOWN",1]; procBuild = false;_playerCombat setVariable["startcombattimer", 1, true]; breakOut "exit";};
+			if (player distance _locationPlayer > 1) then {deletevehicle _object; cutText [format["Build canceled for %1, position of player moved",_text], "PLAIN DOWN",1]; call _funcExitScript;};
+			if (!_canDo || _onLadder || _inVehicle || _isWater) then {deletevehicle _object; cutText [format["Build canceled for %1, player is unable to continue",_text], "PLAIN DOWN",1]; call _funcExitScript;};
 			player playActionNow "Medic";
 			sleep 1;
 			[player,"repair",0,false] call dayz_zombieSpeak;
@@ -437,8 +454,9 @@ _result = [_buildables,_chosenRecipe] call BIS_fnc_areEqual;
 
 if (_result) then {
 //Build final product!
-_location = getposATL _object;
-_dir = getDir _object;
+//_object setpos [((_object modeltoworld [0,0,0]) select 0),((_object modeltoworld [0,0,0]) select 1), 0];
+//_location = getposATL _object;
+//_dir = getDir _object;
 	//Finish last requirement checks, _isSimulated disables objects physics if specified, _isDestructable checks if object needs to be invincible
 	if (!_isSimulated) then {
 		_object enablesimulation false;
@@ -482,7 +500,8 @@ _dir = getDir _object;
 			cutText [format["You have constructed a %1, REMEMBER THIS PERMANENT KEYCODE: %2 .  Make sure to build 2 (one in/one out) Key Panels as soon as possible to get both codes!",_text,_uid], "PLAIN DOWN",60];
 		};
 		default {
-			cutText [format[localize "str_build_01",_text], "PLAIN DOWN"];
+			cutText [format["You have constructed a %1\n Keycode for object removal: %2 .\n",_text,_uid], "PLAIN DOWN",60];
+			//cutText [format[localize "str_build_01",_text], "PLAIN DOWN"];
 		};
 	};
 	//Remove required magazines
@@ -525,12 +544,13 @@ _dir = getDir _object;
 	};
 
 // Send to database
+_object setVariable ["characterID",dayz_characterID,true];
 dayzPublishObj = [dayz_characterID,_object,[_dir,_location],_classname];
 publicVariableServer "dayzPublishObj";
 	if (isServer) then {
 		dayzPublishObj call server_publishObj;
 	};
-} else {cutText ["You need the EXACT amount of whatever you are trying to build without extras.", "PLAIN DOWN"];procBuild = false;_playerCombat setVariable["startcombattimer", 1, true]; breakOut "exit";};
+} else {cutText ["You need the EXACT amount of whatever you are trying to build without extras.", "PLAIN DOWN"];call _funcExitScript;};
 
 player allowdamage true;
 procBuild = false;_playerCombat setVariable["startcombattimer", 1, true];

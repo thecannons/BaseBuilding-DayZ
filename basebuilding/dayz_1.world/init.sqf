@@ -14,7 +14,7 @@ call compile preprocessFileLineNumbers "\z\addons\dayz_code\medical\setup_functi
 progressLoadingScreen 0.4;
 call compile preprocessFileLineNumbers "\z\addons\dayz_code\init\compiles.sqf"; //Compile regular functions
 
-//  Add this in for Base Building 1.2 Make sure it is last to be added before progressLoadingScreen 1.0;
+//  Add this in for Base Building 1.2 Make sure it is last to be added before progressLoadingScreen 1.0 and after the last "call compile preprocessFileLineNumbers"
 call compile preprocessFileLineNumbers "init\variables.sqf"; //Initializes custom variables
 call compile preprocessFileLineNumbers "init\compiles.sqf"; //Compile custom compiles
 call compile preprocessFileLineNumbers "init\settings.sqf"; //Initialize custom clientside settings
