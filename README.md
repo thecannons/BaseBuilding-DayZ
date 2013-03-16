@@ -41,6 +41,8 @@ Base Building DayZ Project.  This adds a building function in DayZ mod regardles
 - Camonets currently cannot be removed by owner or code, only default remove action<br>
 <br><br>
 
+
+
 ### RECOMMENDED TO GET STARTED ###
 
 
@@ -167,11 +169,61 @@ If you **DO NOT** have a modified **fn\_selfActions.sqf** and are running **1.7.
 -Use PBO View to pbo your **dayz\_1.YOURWORLD folder** and your **dayz\_server folder**
 
 
-<br><br>
+<br>
 ###Enjoy Building your new base!
 
+##Modifying Buildable Parameters##
+###build_list.sqf:
 
+- **Found in:
+"dayz\_1.world\dayz\_code\external\dy\_work\build\_list.sqf"**
 
+This is the file used to modify parameters such as:
+
+- Recipe requirements
+- _toolBox required?
+- _eTool required?
+- _medWait, _longWait (how long to build, if neither, then _smallWait)
+-  _inBuilding allowed?
+-  _roadAllowed ?
+-  _inTown ?
+-  _removable (can it be removed by default removal?)
+-  _isStructure (is the buildable a structure?
+-  _isSimulated (does it have physics?) 
+-  _isDestructable (can it be destroyed?)
+
+Alternatively, if you modify any of these parameters, they are **ONLY client side**.  In order to make sure these parameters stay persistent on server restart, you must modify the:
+
+>build\_baseBuilding\_arrays = { BUNCH OF CODE SIMILAR TO BUILD_LIST.sqf };
+
+Found in the **"dayz\_server  (Modified Default Bliss)\init\server\_functions.sqf"** that we installed earlier
+
+You can simply copy and paste the:
+
+>_buildlist = [ ENTIRE ARRAY WITH PARAMETERS YOU CHANGED ];
+
+from **"dayz\_1.world\dayz\_code\external\dy\_work\build\_list.sqf"**
+
+Into the server\_functions.sqf's 
+**\_buildlist = [ SERVER BUILD LIST ARRAY ];**
+
+Detailed information can be found inside the build_list.sqf  itself on how to modify these parameter arrays!
+
+## Other Scripts
+
+####player_bomb.sqf 
+found in **dayz\_1.world\dayz\_code\external\dy\_work\player\_bomb.sqf**
+
+Controls functionality of player placed bombs, modify at your own risk!
+
+####anti_discWall.sqf
+Anti measure for player exploits into walls
+####antiWall.sqf
+When player gets out of vehicle, it teleports him into the vehicle he was getting out of to counter he/she glitching through walls.
+
+####dialog_menus by W4rGo
+I recommend not modifying this and you must have permission from W4rGo to do so.
+<br><br>
 ##CREDITS:
 
 - [**Simple bomb script by Igneous01**](http://www.armaholic...ge.php?id=15033):
