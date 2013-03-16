@@ -4,6 +4,7 @@
 Base Building DayZ Project.  This adds a building function in DayZ mod regardless of map.<br>
 
 **I will be providing minimal support for anyone modifying the existing code.  If you have any questions, please message me on git or email me at daimyo21mods@gmail.com**
+**If anyone would like to script up an easier installation, I will post it on here if you do, I simply do not have time to do this.**
 
 
 ### RECOMMENDED TO GET STARTED ###
