@@ -1,0 +1,5 @@
+Add these lines in DIRECTLY BEFORE "progressLoadingScreen 1.0;"
+
+call compile preprocessFileLineNumbers "init\variables.sqf"; //Initializes custom variables
+call compile preprocessFileLineNumbers "init\compiles.sqf"; //Compile custom compiles
+call compile preprocessFileLineNumbers "init\settings.sqf"; //Initialize custom clientside settings
