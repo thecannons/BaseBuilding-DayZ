@@ -4,9 +4,42 @@
 Base Building DayZ Project.  This adds a building function in DayZ mod regardless of map.<br>
 
 **I will be providing minimal support for anyone modifying the existing code.  If you have any questions, please message me on git or email me at daimyo21mods@gmail.com**
-<br>
-**If anyone would like to script up an easier installation, I will post it on here if you do, I simply do not have time to do this.**
 
+### Base Building Full Features List: ###
+
+- Ability to build 30+ Arma 2/OA Objects in DayZ and create your ultimate base with your friends
+- Buildable Recipe Menu with pictures and Information
+- Gate Panels with Keypad access to open and close gates
+- Buildable Booby Traps that blow up in 10 meter proximity, crawl to avoid!
+- Custom disarm bomb action, with chance to fail based on not having toolbox/entrench tool
+- AntiWall feature that doesnt allow players to exit out of vehicles into player made bases.
+- Custom buildable removal function with chance to lose toolbox
+- Detailed parameters allowing server owners to dictate where things can be built, if they are invincible, etc etc.
+- Integrated into DayZ code
+- Server restart compatible
+- Virtually compatible with any DayZ map.
+- Server side Update object feature to allow active player bases to stay updated for cleanup script.
+
+#### Base Building - DayZ 1.2 Changelog
+
+- Optimizations to code and functionality <br>
+- Integration of player actions into DayZ fn_selfActions.sqf<br>
+- New building mechanic placement<br>
+- New Build Recipe Menu by W4rGo (with pictures and detailed info)<br>
+- New Detailed but easy-to-change parameters allowing server owners to change individual parameters for each buildable<br>
+- New, Buildables update in a 300 meter radius to database when keypanel is used to open gates<br>
+- OwnerID refund/removal of buildables<br>
+- Remove individual buildables with a code that is given when object is built (code can be given to anyone)<br>
+- Updated and cleaned up removal functions<br>
+- AntiWall function fixed<br>
+- Booby traps no longer blow up static graves on the map, it is specified now to only use booby trap model<br>
+- ActiveCombat 1.1 compatible<br>
+<br><br>
+**Known issues:**
+<br>
+- Buildables seem to shift on Taviana after server restart (normally its only 1 meter and happens only once)<br>
+- Camonets currently cannot be removed by owner or code, only default remove action<br>
+<br><br>
 
 ### RECOMMENDED TO GET STARTED ###
 
@@ -51,7 +84,7 @@ Assuming you have **YOUR MISSION folder** open as well as **dayz\_1.world missio
 
 - Simply Drag and Drop these files over FROM **dayz\_1.world** TO YOUR **dayz\_1.YOURWORLD** folders main directory:<br>
 
-  >**-buildRecipeBook folder<br>
+	>**-buildRecipeBook folder<br>
 -dayz\_code folder<br>
 -build\_recipe\_dialog.hpp<br>
 -build\_recipe\_list\_dialog.hpp<br>
