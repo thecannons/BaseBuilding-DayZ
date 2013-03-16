@@ -168,6 +168,9 @@ If you **DO NOT** have a modified **fn\_selfActions.sqf** and are running **1.7.
 
 -Use PBO View to pbo your **dayz\_1.YOURWORLD folder** and your **dayz\_server folder**
 
+##Battleye Filters:
+
+Can be found in the battleye folder.  Not 100% sure if that is all the filters, please report any kicks that you do not know how to resolve or simply change to log only! 
 
 <br>
 ###Enjoy Building your new base!
