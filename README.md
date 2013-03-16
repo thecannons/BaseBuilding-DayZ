@@ -225,12 +225,14 @@ Anti measure for player exploits into walls
 When player gets out of vehicle, it teleports him into the vehicle he was getting out of to counter he/she glitching through walls.
 
 ####dialog_menus by W4rGo
-I recommend not modifying this and you must have permission from W4rGo to do so.
+I recommend not modifying this and you must have permission from [**W4rGo**](https://github.com/w4rgo) to do so.
+
+
 <br><br>
 ##CREDITS:
 
 - [**Simple bomb script by Igneous01**](http://www.armaholic...ge.php?id=15033):
-- W4rGo for his excellent Build Recipe Menu Dialog
+- [**W4rGo**](https://github.com/w4rgo) for his excellent Build Recipe Menu Dialog
 - Operational Gates by Humbleuk and Killzone Kid modified <br>
 - DayZ Code from “Rocket” Dean Hall and DayZ community team<br>
 - Code conversion algorithm for keypanel access by Xeno<br>
