@@ -172,6 +172,19 @@ If you **DO NOT** have a modified **fn\_selfActions.sqf** and are running **1.7.
 
 Can be found in the battleye folder.  Not 100% sure if that is all the filters, please report any kicks that you do not know how to resolve or simply change to log only! 
 
+##Database:
+
+
+**BaseBuilding_Deployables.sql** can be found in:<br>      
+>**"BaseBuilding-DayZ\basebuilding\database"**
+
+- In MYSQL Workbench (or whatever you use to manage DB): 
+- Set your default schema (the database you want to execute scripts on)
+- Make sure you backup and delete your current deployable list. (also keep track of your current primary key IDs for your deployables as MINE may be different.)
+- Go to: <br> File >> Open SQL scripts >> and find/open **BaseBuilding_Deployables.sql**
+
+Execute the script.
+
 <br>
 ###Enjoy Building your new base!
 
