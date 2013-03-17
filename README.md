@@ -244,7 +244,7 @@ I recommend not modifying this and you must have permission from [**W4rGo**](htt
 <br><br>
 ##CREDITS:
 
-- [**Simple bomb script by Igneous01**](http://www.armaholic...ge.php?id=15033):
+- [**Simple bomb script by Igneous01**](http://forums.bistudio.com/showthread.php?123621-Simple-Bomb-defusal-with-keypad):
 - [**W4rGo**](https://github.com/w4rgo) for his excellent Build Recipe Menu Dialog
 - Operational Gates by Humbleuk and Killzone Kid modified <br>
 - DayZ Code from “Rocket” Dean Hall and DayZ community team<br>
