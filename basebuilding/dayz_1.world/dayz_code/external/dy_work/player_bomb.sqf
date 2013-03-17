@@ -10,10 +10,10 @@ if (_inVehicle) then {
 _bombList = nearestObjects [_vehiclePlayer, ["Grave"],18];
 } else {_bombList = nearestObjects [player, ["Grave"],18];};
 _bomb = _bombList select _cnt;
-if (!procBuild && !(_bomb iskindof "Body" || _bomb iskindof "GraveCross1" || _bomb iskindof "GraveCross2" || _bomb iskindof "GraveCrossHelmet" || _bomb iskindof "Land_Church_tomb_1" || _bomb iskindof "Land_Church_tomb_2" || _bomb iskindof "Land_Church_tomb_3" || _bomb iskindof "Mass_grave")) then {
+if (!procBuild && (typeOf(_bomb) == "Grave")) then {//!(typeOf(_bomb) == "Body" || typeOf(_bomb) ==  "GraveCross1" || typeOf(_bomb) ==  "GraveCross2" || typeOf(_bomb) ==  "GraveCrossHelmet" || typeOf(_bomb) ==  "Land_Church_tomb_1" || typeOf(_bomb) ==  "Land_Church_tomb_2" || typeOf(_bomb) ==  "Land_Church_tomb_3" || typeOf(_bomb) ==  "Mass_grave")) then {
 _dir = direction _bomb;
 _pos = [(getposATL _bomb select 0),(getposATL _bomb select 1), (getposATL _bomb select 2) + 0.5];
-_objectID = _bomb getVariable["ObjectID",0];
+_objectID = _bomb getVariable["ObjectID","0"];
 _objectUID = _bomb getVariable["ObjectUID","0"];
 //hint format ["%1",speed _vehiclePlayer];
 if (!isNull _bomb && ((player distance _bomb < 12 && (speed player > 4 || speed player < -3)) || (_vehiclePlayer distance _bomb < 12 && (_inVehicle && speed _vehiclePlayer > 0 || _inVehicle && speed _vehiclePlayer < -0)))) then {
