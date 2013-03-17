@@ -46,7 +46,7 @@ class Build_Recipe_Dialog
         {
             idc = 1201;
             //text = "buildRecipeBook\images\tanktrap.paa"
-            text = "dayz_equip\textures\equip_tanktrap_kit_CA.paa"
+            text = "dayz_equip\textures\equip_tanktrap_kit_CA.paa";
             x = 0.313086 * safezoneW + safezoneX;
             y = 0.334968 * safezoneH + safezoneY;
             w = 0.019375 * safezoneW;
@@ -57,7 +57,7 @@ class Build_Recipe_Dialog
         {
             idc = 1202;
             //text = "buildRecipeBook\images\wirefencekit.paa";
-            text = "dayz_equip\textures\equip_wire_CA.paa"
+            text = "dayz_equip\textures\equip_wire_CA.paa";
             x = 0.313086 * safezoneW + safezoneX;
             y = 0.389979 * safezoneH + safezoneY;
             w = 0.019375 * safezoneW;
@@ -68,7 +68,7 @@ class Build_Recipe_Dialog
         {
             idc = 1203;
             //text = "buildRecipeBook\images\sandbag.paa";
-            text = "dayz_equip\textures\equip_sandbag_CA.paa"
+            text = "dayz_equip\textures\equip_sandbag_CA.paa";
             x = 0.313086 * safezoneW + safezoneX;
             y = 0.444989 * safezoneH + safezoneY;
             w = 0.019375 * safezoneW;
@@ -78,7 +78,7 @@ class Build_Recipe_Dialog
         class LogImage: RscPicture
         {
             idc = 1204;
-            text = "dayz_equip\textures\equip_woodpile_CA.paa"
+            text = "dayz_equip\textures\equip_woodpile_CA.paa";
             //text = "buildRecipeBook\images\wood.paa";
             x = 0.313086 * safezoneW + safezoneX;
             y = 0.5 * safezoneH + safezoneY;
@@ -89,7 +89,7 @@ class Build_Recipe_Dialog
         class ScrapImage: RscPicture
         {
             idc = 1205;
-            text = "dayz_equip\textures\equip_genericparts_CA.paa"
+            text = "dayz_equip\textures\equip_genericparts_CA.paa";
             //text = "buildRecipeBook\images\scrapmetal.paa";
             x = 0.313086 * safezoneW + safezoneX;
             y = 0.555011 * safezoneH + safezoneY;
@@ -100,7 +100,7 @@ class Build_Recipe_Dialog
         class GrenadeImage: RscPicture
         {
             idc = 1206;
-            text = "\CA\weapons\data\equip\m_M67_CA.paa"
+            text = "\CA\weapons\data\equip\m_M67_CA.paa";
             //text = "buildRecipeBook\images\grenade.paa";
             x = 0.313086 * safezoneW + safezoneX;
             y = 0.610021 * safezoneH + safezoneY;
@@ -224,7 +224,7 @@ class Build_Recipe_Dialog
         class ReqFrame: RscFrame
         {
             idc = 1802;
-            text = "Requeriments";
+            text = "Requirments";
             x = 0.39043 * safezoneW + safezoneX;
             y = 0.334968 * safezoneH + safezoneY;
             w = 0.12198 * safezoneW;
@@ -233,7 +233,7 @@ class Build_Recipe_Dialog
         class ToolboxImage: RscPicture
         {
             idc = 1207;
-            text = "dayz_equip\textures\equip_toolbox_CA.paa"
+            text = "dayz_equip\textures\equip_toolbox_CA.paa";
             //text = "buildRecipeBook\images\toolbox.paa";
             x = 0.409766 * safezoneW + safezoneX;
             y = 0.362474 * safezoneH + safezoneY;
@@ -244,7 +244,7 @@ class Build_Recipe_Dialog
         class EToolImage: RscPicture
         {
             idc = 1208;
-            text = "dayz_equip\textures\equip_etool_CA.paa"
+            text = "dayz_equip\textures\equip_etool_CA.paa";
            // text = "buildRecipeBook\images\etool.paa";
             x = 0.409766 * safezoneW + safezoneX;
             y = 0.403732 * safezoneH + safezoneY;
