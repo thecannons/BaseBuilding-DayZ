@@ -31,8 +31,8 @@ _detonate = "grenade" createVehicle _pos;
 
 };
 
-dayzDeleteObj = [_dir, _pos, _objectID, _objectUID];
-publicVariable "dayzDeleteObj";
+dayzDeleteObj = [_objectID,_objectUID];
+publicVariableServer "dayzDeleteObj";
 if (isServer) then {
 	dayzDeleteObj call local_deleteObj;
 };
