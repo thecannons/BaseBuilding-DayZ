@@ -144,8 +144,19 @@ If you **DO NOT** have a modified **fn\_selfActions.sqf** and are running **1.7.
 
 ## Part 3 - dayz_server  (Modified Default Bliss) folder
 
+- First, go into YOUR **server_publishObject.sqf** Found in **"dayz\_server\compile\"** and change this:
 
-- Start by opening up YOUR **"dayz\_server  (Modified Default Bliss)\README.txt"** 
+>if (!(_object isKindOf "Building")) exitWith {<br>
+deleteVehicle _object;<br>
+};
+
+TO:
+> //if (!(_object isKindOf "Building")) exitWith {<br>
+//deleteVehicle _object;<br>
+//};
+
+
+- Now open the **"dayz\_server  (Modified Default Bliss)\README.txt"** 
 
 - The README goes over 3 Sections.
 
