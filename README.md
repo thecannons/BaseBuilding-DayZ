@@ -144,6 +144,26 @@ If you **DO NOT** have a modified **fn\_selfActions.sqf** and are running **1.7.
 
 ## Part 3 - dayz_server  (Modified Default Bliss) folder
 
+### For People Running Reality Server Build for 1.7.6.1:
+<br>
+In YOUR **"dayz\_server\init\server\_functions.sqf"** 
+<br>
+Find this function:
+>**check\_publishobject = { <br>
+"bunch of code inside" <br>
+};**
+
+And Change this line:
+>**if ((typeOf \_object) in \_allowedObjects) then {**
+
+to:
+
+>**if ((typeOf \_object) in \_allowedObjects || (typeOf \_object) in allbuildables\_class) then {**
+
+This will insure that your buildables will write to database.
+<br><br>
+
+
 - First, go into YOUR **server_publishObject.sqf** Found in **"dayz\_server\compile\"** and change this:
 
 >if (!(_object isKindOf "Building")) exitWith {<br>
