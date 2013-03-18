@@ -39,7 +39,8 @@ Base Building DayZ Project.  This adds a building function in DayZ mod regardles
 <br>
 - Buildables seem to shift on Taviana after server restart (normally its only 1 meter and happens only once)<br>
 - Camonets currently cannot be removed by owner or code, only default remove action<br>
-###Important for people experiencing broken codes!
+
+###Important for people experiencing broken codes!<br>
 - **If CODE for Keypanels/Removing Objects were once working consistently but no longer work, you MUST go inside your database tool (workbench for me) under instance_deployables table, filter the "Code" for that object/panel and find it in table, then manually delete it!  If its not filtering, remove some numbers slowly until you get closest match and verify that its the object!**
 <br><br>
 
