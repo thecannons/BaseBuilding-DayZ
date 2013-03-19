@@ -56,12 +56,9 @@ _currentSkin = typeOf(player);
 	//Add in custom eventhandlers or whatever on skin change
 	if (_currentSkin != globalSkin) then {
 		globalSkin = _currentSkin;
-		player removeEventHandler ["AnimChanged",0];
 		player removeMPEventHandler ["MPHit", 0]; 
 		player removeEventHandler ["AnimChanged", 0];
-		haloAction = player addEventHandler ["AnimChanged", {_this spawn ss_halo;}];
 		ehWall = player addEventHandler ["AnimChanged", { player call antiWall; } ];
-		empHit = player addMPEventHandler ["MPHit", {_this spawn fnc_plyrHit;}];
 	};
 	// Remove CamoNets, (Not effecient but works)
 	if((isNull cursorTarget) && _hasToolbox && _canDo && !remProc && !procBuild && 
