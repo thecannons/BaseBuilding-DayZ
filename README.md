@@ -178,9 +178,30 @@ TO:
 //deleteVehicle _object;<br>
 //};
 
+###Also for Reality Build users on 1.7.6.1 or objects not removing from Database after restart:
+
+In
+**"dayz_1.world\dayz\_code\actions\player\_remove.sqf"**
+
+
+Change this:
+
+>**if (isServer) then {
+    dayzDeleteObj call local\_deleteObj;
+};**
+
+to this:
+
+
+
+>**if (isServer) then {
+    dayzDeleteObj call server\_deleteObj;
+};**
+
+Continue below.
+
 
 - Now open the **"dayz\_server  (Modified Default Bliss)\README.txt"** 
-
 - The README goes over 3 Sections.
 
 **-Section 1 is mandatory if you want your buildables to be placed properly after server restart.**
