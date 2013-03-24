@@ -50,9 +50,9 @@ Base Building DayZ Project.  This adds a building function in DayZ mod regardles
 ### RECOMMENDED TO GET STARTED ###
 
 
-- **Notepad++** -- [http://notepad-plus-plus.org/download/v6.3.html](http://notepad-plus-plus.org/download/v6.3.html)<br>
-- **Notepad++ Compare Plugin** -- [http://sourceforge.net/projects/npp-compare/](http://sourceforge.net/projects/npp-compare/)<br>
-
+- [Notepad++](http://notepad-plus-plus.org/download/v6.3.html)<br>
+- [Notepad++ Compare Plugin](http://sourceforge.net/projects/npp-compare/)<br>
+- [Arma 2 SQF Syntax Highlights for Notepad++ HIGHLY RECOMMENDED](http://forums.bistudio.com/showthread.php?91939-Notepad-SQF-syntax-highlight)<br>
 ### REQUIRED BEFORE INSTALLATION TUTORIAL ###
 
 - **PBO View** (or equivalent pbo tool) --  [http://www.armaholic.com/page.php?id=1434](http://www.armaholic.com/page.php?id=1434)<br>
