@@ -172,20 +172,6 @@ if (!isNull cursorTarget and !_inVehicle and (player distance cursorTarget < 4))
 		s_player_codeRemove = -1;
 	};
 
-	// Smelt Items/Smelt Recipe Menu Action - W4rGo
-	if((inflamed cursorTarget && cursorTarget distance player < 5) && _canDo && !remProc && !procBuild) then {
-		if (s_player_smeltItems < 0) then {
-			s_player_smeltItems = player addaction[("<t color=""#ffb000"">" + ("Smelt Items") +"</t>"),"dayz_code\actions\player_smelt.sqf","",1,true,true,"", ""];
-		};
-		if (s_player_smeltRecipes < 0) then {
-			s_player_smeltRecipes = player addaction[("<t color=""#00adeb"">" + ("Smelt Recipes") +"</t>"),"dayz_code\actions\player_smeltBook.sqf","",1,true,true,"", ""];	
-		};
-	} else {
-		player removeAction s_player_smeltItems;
-		s_player_smeltItems = -1;
-		player removeAction s_player_smeltRecipes;
-		s_player_smeltRecipes = -1;
-	};
 	// Disarm Booby Trap Action
 	if(_hasToolbox && _canDo && !remProc && !procBuild && (cursortarget iskindof "Grave" && cursortarget distance player < 2.5 && !(cursortarget iskindof "Body" || cursortarget iskindof "GraveCross1" || cursortarget iskindof "GraveCross2" || cursortarget iskindof "GraveCrossHelmet" || cursortarget iskindof "Land_Church_tomb_1" || cursortarget iskindof "Land_Church_tomb_2" || cursortarget iskindof "Land_Church_tomb_3" || cursortarget iskindof "Mass_grave"))) then {
 		if (s_player_disarmBomb < 0) then {
