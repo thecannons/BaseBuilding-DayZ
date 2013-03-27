@@ -226,8 +226,12 @@ Continue below.
 
 ##Battleye Filters:
 
-Can be found in the battleye folder.  Not 100% sure if that is all the filters, please report any kicks that you do not know how to resolve or simply change to log only! 
+**Can be found in the battleye folder.**  Not 100% sure if that is all the filters, please report any kicks that you do not know how to resolve or simply change to log only! 
 
+Line 23 add:
+>!"_detonate = \"grenade\" createVehicle _pos;"
+
+Ill update as long as people message me with kicks due to base building
 ##Database:
 
 
