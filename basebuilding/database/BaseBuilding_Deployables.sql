@@ -1,8 +1,5 @@
 /*
--- Query: SELECT * FROM dayz_tavi2.deployable
-LIMIT 0, 1000
-
--- Date: 2013-03-16 14:34
+SET YOUR DEFAULT SCHEMA BY RIGHT CLICKING THE DATABASE AND "SET AS DEFAULT SCHEMA";
 */
 INSERT INTO `deployable` (`id`,`class_name`) VALUES (9,'Base_WarfareBBarrier10x');
 INSERT INTO `deployable` (`id`,`class_name`) VALUES (7,'Base_WarfareBBarrier10xTall');

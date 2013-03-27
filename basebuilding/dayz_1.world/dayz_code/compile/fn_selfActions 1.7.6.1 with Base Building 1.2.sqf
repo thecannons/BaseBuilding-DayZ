@@ -173,11 +173,6 @@ if (!isNull cursorTarget and !_inVehicle and (player distance cursorTarget < 4))
 	if((speed player <= 1) && !removeObject && (typeOf(cursortarget) in allbuildables_class) && cursorTarget distance player < 5 && _canDo) then {
 			if (s_player_codeObject < 0) then {
 				s_player_codeObject = player addaction [("<t color=""#8E11F5"">" + ("Enter Code of Object to remove") +"</t>"),"dayz_code\external\keypad\fnc_keyPad\enterCode.sqf","",5,false,true,"",""];
-
-
-
-
-
 			};
 	} else {
 		player removeAction s_player_codeObject;
