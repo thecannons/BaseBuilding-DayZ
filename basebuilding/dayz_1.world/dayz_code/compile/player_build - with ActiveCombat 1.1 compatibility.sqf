@@ -139,7 +139,7 @@ _mags = magazines player;
 	{
 		_buildable = (allbuildables select _i) select _i - _i;
 		_result = [_buildables,_buildable] call BIS_fnc_areEqual;
-			if (_result) then {
+			if (_result) exitWith {
 				_classname = (allbuildables select _i) select _i - _i + 1;
 				_requirements = (allbuildables select _i) select _i - _i + 2;
 				_chosenRecipe = _buildable;
