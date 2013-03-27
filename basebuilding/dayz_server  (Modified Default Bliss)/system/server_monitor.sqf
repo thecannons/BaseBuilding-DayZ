@@ -127,14 +127,16 @@ _countr = 0;
 			{
 				_classname = (allbuildables select _i) select _i - _i + 1;
 				_result = [_classname,typeOf(_object)] call BIS_fnc_areEqual;
-				if (_result) then {
+				if (_result) exitWith {
 					_requirements = (allbuildables select _i) select _i - _i + 2;
-
 					_isDestructable = _requirements select 13;
 					diag_log ("SERVER: " + typeOf(_object) + " _isDestructable = " + str(_isDestructable));
 					if (!_isDestructable) then {
 						diag_log("Spawned: " + typeOf(_object) + " Handle Damage False");
 						_object addEventHandler ["HandleDamage", {false}];
+					};
+					if (typeOf(_object) == "Grave") then {
+						_object setVariable ["isBomb", true];
 					};
 				};
 			};

@@ -493,7 +493,8 @@ if (_result) then {
 	{
 		case "Grave":
 		{
-			cutText [format["You have constructed a %1, crawl away so you dont set it off!",_text], "PLAIN DOWN",1];	
+			cutText [format["You have constructed a %1, crawl away so you dont set it off!",_text], "PLAIN DOWN",1];
+			_object setVariable ["isBomb", true];
 		};
 		case "Infostand_2_EP1":
 		{

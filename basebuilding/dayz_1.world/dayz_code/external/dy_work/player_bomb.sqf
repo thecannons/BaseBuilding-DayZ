@@ -1,8 +1,7 @@
-private["_vehiclePlayer","_inVehicle","_hasBlown","_timeLeft","_dogsFly","_bombList","_bomb","_timer","_cnt","_arrayTotal","_dir","_pos","_objectID","_objectUID","_detonate"];
+private["_isBomb","_vehiclePlayer","_inVehicle","_hasBlown","_timeLeft","_bombList","_bomb","_timer","_cnt","_arrayTotal","_dir","_pos","_objectID","_objectUID","_detonate"];
 _cnt = 0;
 _timeLeft = 3;
-_dogsFly = true;
-while {_dogsFly} do {
+while {true} do {
 _hasBlown = false;
 _inVehicle = (vehicle player != player);
 _vehiclePlayer = (vehicle player);
@@ -10,7 +9,8 @@ if (_inVehicle) then {
 _bombList = nearestObjects [_vehiclePlayer, ["Grave"],18];
 } else {_bombList = nearestObjects [player, ["Grave"],18];};
 _bomb = _bombList select _cnt;
-if ((!procBuild && (typeOf(_bomb) == "Grave")) && !((typeOf(_bomb) == "Body") || (typeOf(_bomb) ==  "GraveCross1") || (typeOf(_bomb) ==  "GraveCross2") || (typeOf(_bomb) ==  "GraveCrossHelmet") || (typeOf(_bomb) ==  "Land_Church_tomb_1") || (typeOf(_bomb) ==  "Land_Church_tomb_2") || (typeOf(_bomb) ==  "Land_Church_tomb_3") || (typeOf(_bomb) ==  "Mass_grave"))) then {
+_isBomb = _bomb getVariable "isBomb";
+if ((!procBuild && (typeOf(_bomb) == "Grave")) && _isBomb) then {
 _dir = direction _bomb;
 _pos = [(getposATL _bomb select 0),(getposATL _bomb select 1), (getposATL _bomb select 2) + 0.5];
 _objectID = _bomb getVariable["ObjectID","0"];
