@@ -38,13 +38,13 @@ Must be added directly after:
 // ####Copy START
 // ##### BASE BUILDING 1.2 Server Side ##### - START
 // This sets objects to appear properly once server restarts
+		//_object setVariable ["ObjectUID", _worldspace call dayz_objectUID2, true]; // Optional (REMOVE // lines before _object) May fix DayZ.ST issues, or issues related to Panel codes not working thanks nullpo
 		if ((_object isKindOf "Static") && !(_object isKindOf "TentStorage")) then {
 			_object setpos [(getposATL _object select 0),(getposATL _object select 1), 0];
 		};
 		//Set Variable
 		if (_object isKindOf "Infostand_2_EP1" && !(_object isKindOf "Infostand_1_EP1")) then {
 			_object setVariable ["ObjectUID", _worldspace call dayz_objectUID2, true];
-			_object enableSimulation false;
 		};
 
 

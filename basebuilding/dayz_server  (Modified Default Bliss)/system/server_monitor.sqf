@@ -101,7 +101,7 @@ _countr = 0;
 		
 		clearWeaponCargoGlobal  _object;
 		clearMagazineCargoGlobal  _object;
-		
+		//_object setVariable ["ObjectUID", _worldspace call dayz_objectUID2, true]; // Optional (REMOVE // lines before _object) May fix DayZ.ST issues, or issues related to Panel codes not working thanks nullpo
 		if (_object isKindOf "TentStorage") then {
 			_pos set [2,0];
 			_object setpos _pos;
