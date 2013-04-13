@@ -47,7 +47,7 @@ if (_validMatch) then {
 		cutText ["Lost connection to panel > 150 meters away", "PLAIN DOWN"];
 		};
 	_cnt = _cnt - 1;
-	if (_cnt >= 600 && _cnt % 10 == 0) then {
+	if (_cnt <= 600 && _cnt % 10 == 0) then {
 		cutText [format["Access to panel expires in %1 seconds",(_cnt / 10)], "PLAIN DOWN",1];
 	};	
 		if (_cnt <= 0) then {
@@ -89,7 +89,7 @@ if (!_validObjectCode) then {
 				cutText ["Object access lost, player > 5 meters away", "PLAIN DOWN"];
 			};
 			_cnt = _cnt - 1;
-			if (_cnt >= 600 && _cnt % 10 == 0) then {
+			if (_cnt <= 600 && _cnt % 10 == 0) then {
 				cutText [format["Access to object expires in %1 seconds",(_cnt / 10)], "PLAIN DOWN",1];
 			};	
 			if (_cnt <= 0) then {
