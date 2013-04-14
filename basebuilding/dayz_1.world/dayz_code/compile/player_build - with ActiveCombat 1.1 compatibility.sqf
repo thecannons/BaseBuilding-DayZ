@@ -238,7 +238,7 @@ while {!_buildReady} do {
 				_inProgress = false;
 					while {speed player == 0 && !_buildReady} do {
 						sleep 0.1;
-						if (_cntLoop == 100 || _cntLoop == 90 || _cntLoop == 80 || _cntLoop == 70 || _cntLoop == 60 || _cntLoop == 50 || _cntLoop == 40 || _cntLoop == 30 || _cntLoop == 20 || _cntLoop == 10 || _cntLoop == 0) then {
+						if (_cntLoop <= 100 && _cntLoop % 10 == 0) then {
 						cutText [format["Building of %1 starts in %2 seconds. Move to restart timer and position",_text, (_cntLoop / 10)], "PLAIN DOWN",1];
 						};
 						// Cancel build if rules broken
