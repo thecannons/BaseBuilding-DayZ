@@ -23,7 +23,40 @@ for "_i" from 0 to (count _convertInput - 1) do {_convertInput set [_i, (_conver
 	_validObjectCode = [_code, (toString _convertInput)] call BIS_fnc_areEqual;
 	};
 
-
+//Determine camoNet since camoNets cannot be targeted with Crosshair
+switch (true) do
+{
+	case(camoNetB_East distance player < 10 && isNull _panel):
+	{
+		_panel = camoNetB_East;
+		_panelPos = getpos _panel;
+	};
+	case(camoNetVar_East distance player < 10 && isNull _panel):
+	{
+		_panel = camoNetVar_East;
+		_panelPos = getpos _panel;
+	};
+	case(camoNet_East distance player < 10 && isNull _panel):
+	{
+		_panel = camoNet_East;
+		_panelPos = getpos _panel;
+	};
+	case(camoNetB_Nato distance player < 10 && isNull _panel):
+	{
+		_panel = camoNetB_Nato;
+		_panelPos = getpos _panel;
+	};
+	case(camoNetVar_Nato distance player < 10 && isNull _panel):
+	{
+		_panel = camoNetVar_Nato;
+		_panelPos = getpos _panel;
+	};
+	case(camoNet_Nato distance player < 10 && isNull _panel):
+	{
+		_panel = camoNet_Nato;
+		_panelPos = getpos _panel;
+	};
+};
 if (_validMatch) then {
 	cutText ["### ACCESS GRANTED ###", "PLAIN DOWN"];
 
@@ -54,6 +87,7 @@ if (_validMatch) then {
 		_gateAccess = false;
 		keyValid = false;
 		cutText ["You no longer have gate access, type code in again to have access", "PLAIN DOWN"];
+	{dayz_myCursorTarget removeAction _x} forEach s_player_gateActions;s_player_gateActions = [];
 		};
 	sleep .1;
 	};

@@ -234,6 +234,10 @@ while {!_buildReady} do {
 				_location = getposATL _object;
 				_dir = getDir _object;
 				_object setpos [(getposATL _object select 0),(getposATL _object select 1), 0];
+				deletevehicle _object;
+				_object = createVehicle [_classname, _location, [], 0, "CAN_COLLIDE"];
+				_object setDir _dir;
+				_object setpos [(getposATL _object select 0),(getposATL _object select 1), 0];
 				_cntLoop = 50;
 				_inProgress = false;
 					while {speed player == 0 && !_buildReady} do {

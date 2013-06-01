@@ -70,10 +70,30 @@ _currentSkin = typeOf(player);
 		camoNet_Nato distance player < 10)) then {
 		if (s_player_deleteCamoNet < 0) then {
 			s_player_deleteCamoNet = player addaction [("<t color=""#F01313"">" + ("Remove Netting") +"</t>"),"dayz_code\actions\player_remove.sqf","",1,true,true,"",""];
+			s_player_netCodeObject = player addaction [("<t color=""#8E11F5"">" + ("Enter Code of Object to remove Netting") +"</t>"),"dayz_code\external\keypad\fnc_keyPad\enterCode.sqf","",5,false,true,"",""];
 		};
 	} else {
 		player removeAction s_player_deleteCamoNet;
 		s_player_deleteCamoNet = -1;
+		player removeAction s_player_netCodeObject;
+		s_player_netCodeObject = -1;
+	};
+	
+		
+	// Remove CamoNets Owner removal, (Not effecient but works)
+if(_canDo && removeObject && !procBuild && !remProc && 
+(camoNetB_East distance player < 10 or 
+camoNetVar_East distance player < 10 or 
+camoNet_East distance player < 10 or 
+camoNetB_Nato distance player < 10 or 
+camoNetVar_Nato distance player < 10 or 
+camoNet_Nato distance player < 10)) then {
+		if (s_player_codeRemoveNet < 0) then {
+			s_player_codeRemoveNet = player addaction [("<t color=""#8E11F5"">" + ("Base Owners Remove Object Netting") +"</t>"),"dayz_code\actions\player_remove.sqf","",5,false,true,"",""];
+		};
+	} else {
+			player removeAction s_player_codeRemoveNet;
+			s_player_codeRemoveNet = -1;
 	};
 //##### BASE BUILDING 1.2 Custom Actions (CROSSHAIR IS TARGETING NOTHING) #####
 // #### END1 ####

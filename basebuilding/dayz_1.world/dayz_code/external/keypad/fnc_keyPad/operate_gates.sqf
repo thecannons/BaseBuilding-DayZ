@@ -14,6 +14,8 @@ publicVariableServer "dayz_updateNearbyObjects";
 	if (isServer) then {
 		dayz_updateNearbyObjects call server_updateNearbyObjects;
 	};
+	{dayz_myCursorTarget removeAction _x} forEach s_player_gateActions;s_player_gateActions = [];
+//[_charPos, _isBuildable] call server_updateNearbyObjects;
 
 
 if (_inMotion == 0) then {
