@@ -56,6 +56,7 @@ if(_isWater) then {cutText [localize "str_player_26", "PLAIN DOWN"];breakOut "ex
 if(_onLadder) then {cutText [localize "str_player_21", "PLAIN DOWN"];breakOut "exit";};
 if (_inVehicle) then {cutText [localize "Can't do this in vehicle", "PLAIN DOWN"];breakOut "exit";};
 
+// This function is for owner removal either by code (line 109) or by ownerID (line 112)
 _func_ownerRemove = {
 
 for "_i" from 0 to ((count allbuildables) - 1) do
@@ -103,15 +104,6 @@ for "_i" from 0 to ((count allbuildables) - 1) do
 };
 
 
-		_validObject = _obj getVariable ["validObject",false];
-if (removeObject && _validObject) then {
-	call _func_ownerRemove;
-};
-
-if ( _ownerID == dayz_characterID ) then { 
-	call _func_ownerRemove;
-};
-remProc = true;
 
 //Determine camoNet since camoNets cannot be targeted with Crosshair
 
@@ -120,43 +112,57 @@ switch (true) do
 	case(camoNetB_East distance player < 10 && isNull _obj):
 	{
 		_obj = camoNetB_East;
-		_objectID = _obj getVariable["ObjectID",0];
+		_objectID = _obj getVariable["ObjectID","0"];
 		_objectUID = _obj getVariable["ObjectUID","0"];
+		_ownerID = _obj getVariable ["characterID","0"];
 	};
 	case(camoNetVar_East distance player < 10 && isNull _obj):
 	{
 		_obj = camoNetVar_East;
-		_objectID = _obj getVariable["ObjectID",0];
+		_objectID = _obj getVariable["ObjectID","0"];
 		_objectUID = _obj getVariable["ObjectUID","0"];
+		_ownerID = _obj getVariable ["characterID","0"];
 	};
 	case(camoNet_East distance player < 10 && isNull _obj):
 	{
 		_obj = camoNet_East;
-		_objectID = _obj getVariable["ObjectID",0];
+		_objectID = _obj getVariable["ObjectID","0"];
 		_objectUID = _obj getVariable["ObjectUID","0"];
+		_ownerID = _obj getVariable ["characterID","0"];
 	};
 	case(camoNetB_Nato distance player < 10 && isNull _obj):
 	{
 		_obj = camoNetB_Nato;
-		_objectID = _obj getVariable["ObjectID",0];
+		_objectID = _obj getVariable["ObjectID","0"];
 		_objectUID = _obj getVariable["ObjectUID","0"];
+		_ownerID = _obj getVariable ["characterID","0"];
 	};
 	case(camoNetVar_Nato distance player < 10 && isNull _obj):
 	{
 		_obj = camoNetVar_Nato;
-		_objectID = _obj getVariable["ObjectID",0];
+		_objectID = _obj getVariable["ObjectID","0"];
 		_objectUID = _obj getVariable["ObjectUID","0"];
+		_ownerID = _obj getVariable ["characterID","0"];
 	};
 	case(camoNet_Nato distance player < 10 && isNull _obj):
 	{
 		_obj = camoNet_Nato;
-		_objectID = _obj getVariable["ObjectID",0];
+		_objectID = _obj getVariable["ObjectID","0"];
 		_objectUID = _obj getVariable["ObjectUID","0"];
+		_ownerID = _obj getVariable ["characterID","0"];
 	};
 
 };
 
+	_validObject = _obj getVariable ["validObject",false];
+if (removeObject && _validObject) then {
+	call _func_ownerRemove;
+};
 
+if ( _ownerID == dayz_characterID ) then { 
+	call _func_ownerRemove;
+};
+remProc = true;
 // Check what object is returned from global array, then return classname
 	for "_i" from 0 to ((count allbuildables) - 1) do
 	{
@@ -371,8 +377,11 @@ cutText [format["You removed a %1 successfully!",_text], "PLAIN DOWN"];
 //	dayzDeleteObj = [_dir, _pos, _objectID, _objectUID];
 	dayzDeleteObj = [_objectID,_objectUID];
 publicVariableServer "dayzDeleteObj";
-if (isServer) then {
-	dayzDeleteObj call local_deleteObj;
+//if (isServer) then {
+//	dayzDeleteObj call local_deleteObj;
+//};
+if (isServer) then { 
+dayzDeleteObj call server_deleteObj; 
 };
 sleep .1;
 deleteVehicle _obj;
